@@ -59,6 +59,10 @@ scrollimation('#section2', function(t) {
 });
 
 
+
+var randoms = 'RISKY'.split('').map(Math.random);
+
+
 scrollimation('#section3', function(t) {
   var canvas = $('#risky')[0];
   var ctx = canvas.getContext('2d');
@@ -78,9 +82,18 @@ scrollimation('#section3', function(t) {
 
     // Fully collapsed, do the crazy stuff
     if(t > 0.75) {
+      var random = randoms[i];
+
+      var subt = t-0.75;
+
       ctx.translate(x,y);
-      ctx.rotate(t);
+      ctx.rotate((random-0.5) * (t-0.75)*10);
       ctx.translate(-x,-y);
+
+
+      if(letter === 'K') {
+        ctx.translate(x*subt*10, y*subt*10);
+      }
     }
 
     ctx.fillText(letter, x, y); 
