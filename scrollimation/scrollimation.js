@@ -41,13 +41,54 @@
 
 
 scrollimation('#section2', function(t) {
-  var half = $(window).height();
+  var half = $(window).height()/2;
+
   $('header').css({
     top: half-t*half,
-    height: half * (1-t) + 100
+    height: Math.max(100, half/2 * (1-t))
   });
 
   $('header > div').css({
-    marginLeft: t * 100
+    right: 50 - t * 50 + '%'
   });
+
+  $('#logo').css({
+    right: 50 - t * 50 + '%'
+  });
+
+});
+
+
+scrollimation('#section3', function(t) {
+  var canvas = $('#risky')[0];
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width, canvas.height);
+
+  ctx.font = "100px Helvetica";
+
+  var offset = 0;
+  'RISKY'.split('').forEach(function(letter,i) {
+    ctx.save();
+
+    var spacing = offset-i*(t)*100;
+    spacing = Math.max(0,spacing);
+
+    var x = spacing + offset;
+    var y = 100;
+
+    // Fully collapsed, do the crazy stuff
+    if(t > 0.75) {
+      ctx.translate(x,y);
+      ctx.rotate(t);
+      ctx.translate(-x,-y);
+    }
+
+    ctx.fillText(letter, x, y); 
+
+    offset += ctx.measureText(letter).width + spacing;
+
+    ctx.restore();
+
+  });
+
 });
