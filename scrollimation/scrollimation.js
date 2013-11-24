@@ -43,12 +43,12 @@
 scrollimation('#section2', function(t) {
   var half = $(window).height()/2;
 
-  $('header').css({
+  $('#header').css({
     top: half-t*half,
     height: Math.max(100, half/2 * (1-t))
   });
 
-  $('header > div').css({
+  $('#header > div').css({
     right: 50 - t * 50 + '%'
   });
 
@@ -59,19 +59,26 @@ scrollimation('#section2', function(t) {
 });
 
 
+var risky = ['R','I','S','K','Y'];
 
-var randoms = 'RISKY'.split('').map(Math.random);
+var randoms = risky.map(Math.random);
 
-
+var once = false;
+var ctx, canvas;
 scrollimation('#section3', function(t) {
-  var canvas = $('#risky')[0];
-  var ctx = canvas.getContext('2d');
+  if(!once) {
+    canvas = $('#risky')[0];
+    // canvas.width = $(window).width();
+    ctx = canvas.getContext('2d');
+  }
+
+  once = true;
   ctx.clearRect(0,0,canvas.width, canvas.height);
 
   ctx.font = "100px Helvetica";
 
   var offset = 0;
-  'RISKY'.split('').forEach(function(letter,i) {
+  risky.forEach(function(letter,i) {
     ctx.save();
 
     var spacing = offset-i*(t)*100;
@@ -79,21 +86,23 @@ scrollimation('#section3', function(t) {
 
     var x = spacing + offset;
     var y = 100;
-
     // Fully collapsed, do the crazy stuff
-    if(t > 0.75) {
+    if(t > 0.5) {
+      var subt = t-0.5;
+
+      if(letter === 'K') {
+        x += 1000*subt;
+        y += 1000*subt;
+      }
+
       var random = randoms[i];
 
-      var subt = t-0.75;
 
       ctx.translate(x,y);
-      ctx.rotate((random-0.5) * (t-0.75)*10);
+      ctx.rotate((random-0.5) * (subt)*20);
       ctx.translate(-x,-y);
 
 
-      if(letter === 'K') {
-        ctx.translate(x*subt*10, y*subt*10);
-      }
     }
 
     ctx.fillText(letter, x, y); 

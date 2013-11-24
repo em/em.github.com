@@ -1,10 +1,10 @@
-<!--[if lt IE 9]>
-<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
-<![endif]-->
 
+<script src="html5shiv.js"></script>
+<script src="array.generics.min.js"></script>
+<script src="excanvas.js"></script>
 <script src="jquery-1.7.1.js"></script>
 <script src="scrollimation.js"></script>
-<script src="raphael-min.js"></script>
+
 
 <style>
   
@@ -12,7 +12,7 @@
     margin: 0;
   }
 
-  header {
+  #header {
     height: 100px;
     background: black;
     position: fixed;
@@ -34,10 +34,10 @@
     margin: 20px;
   }
 
-  section {
+  .section {
     height: 800px;
     display: block;
-    border-bottom: 5px solid black;
+    border-bottom: 5px solid gray;
   }
 
   #risky {
@@ -46,25 +46,24 @@
   }
 </style>
 
-<header>
+<div id="header">
   <div id="logo">NAVEX GLOBAL</div>
   <div id="menu">
     <div id="visionary">Visionary</div>
     <div id="visionary">Practitioner</div>
     <div id="strategist">Strategist</div>
   </div>
-</header>
+</div>
 
-<section id="section1">
+<div class="section" id="section1">
   test 1
-</section>
+</div>
 
-<section id="section2">
+<div class="section" id="section2">
   test 2
-</section>
+</div>
 
-<section id="section3">
-  test 3
-  <canvas id="risky" width=1500 height=500>
+<div class="section" id="section3">
+  <canvas id="risky" width=1500 height=1000>
   </canvas>
-</section>
+</div>
